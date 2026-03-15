@@ -23,6 +23,8 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -169,6 +171,7 @@ fun ApplicationContent(
             )
         }
         if (backdropStyle != BackdropStyle.BACKDROP_NONE) {
+            val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
             Box(
                 modifier = Modifier.fillMaxSize(),
             ) {
@@ -214,7 +217,7 @@ fun ApplicationContent(
                                     brush =
                                         Brush.horizontalGradient(
                                             colors = listOf(Color.Transparent, Color.Black),
-                                            startX = 0f,
+                                            startX = if (isRtl) size.width else 0f,
                                             endX = size.width * 0.6f,
                                         ),
                                     blendMode = BlendMode.DstIn,
